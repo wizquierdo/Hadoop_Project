@@ -21,7 +21,7 @@ public class MainMapReduce {
 		Configuration conf = new Configuration();
 		conf.set("testing_set", args[2]);
 		conf.setInt("k", Integer.parseInt(args[4]));
-		//conf.setLong(FileInputFormat.SPLIT_MAXSIZE, 14512253/Integer.parseInt(args[5]));
+		conf.setLong(FileInputFormat.SPLIT_MAXSIZE, 14512253/Integer.parseInt(args[5]));
 		Job HadoopJob = Job.getInstance(conf, "MapReduceDS");
 				
 		HadoopJob.setJarByClass(MainMapReduce.class);	
@@ -33,7 +33,7 @@ public class MainMapReduce {
 		HadoopJob.setOutputKeyClass(IntWritable.class);
 		HadoopJob.setOutputValueClass(IntWritable.class);
 		
-		//job.setNumReduceTasks(reducerCount);
+		HadoopJob.setNumReduceTasks(Integer.parseInt(args[6]));
 				
 		FileInputFormat.addInputPath(HadoopJob, new Path(args[1]));
 		FileOutputFormat.setOutputPath(HadoopJob, new Path(args[3]));
