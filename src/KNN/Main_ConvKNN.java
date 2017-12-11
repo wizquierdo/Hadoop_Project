@@ -13,7 +13,7 @@ public class Main_ConvKNN {
 
 	public static void main(String[] args) {
 		ArrayList<float[]> train_set = loadDataSet("zip.train");
-		train_set = new ArrayList<>(train_set.subList(0, 1000));
+		//train_set = new ArrayList<>(train_set.subList(0, 1000));
 		ArrayList<float[]> test_set = loadDataSet("zip.test");
 		Conventional_KNN nn_obj = new Conventional_KNN();
 		
