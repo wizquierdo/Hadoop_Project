@@ -32,8 +32,6 @@ public class MainMapReduce {
 		HadoopJob.setMapOutputValueClass(ListOfPairs.class);
 		HadoopJob.setOutputKeyClass(IntWritable.class);
 		HadoopJob.setOutputValueClass(IntWritable.class);
-		
-		HadoopJob.setNumReduceTasks(Integer.parseInt(args[6]));
 				
 		FileInputFormat.addInputPath(HadoopJob, new Path(args[1]));
 		FileOutputFormat.setOutputPath(HadoopJob, new Path(args[3]));
