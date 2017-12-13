@@ -18,27 +18,26 @@ public class Main_ConvKNN {
 		Conventional_KNN nn_obj = new Conventional_KNN();
 		
 		long tic_toc = System.currentTimeMillis();
-		
-		double [] error =new double[13];
-		int counter=0;
-		for(float[] tst_sample: test_set) {
-			TreeMap<Double, Integer> trMap = nn_obj.nn_search(train_set, tst_sample,25);
-			for(int k = 0; k<13; k++){
-				int predict =  nn_obj.classifier( 2*k+1, trMap);
+		for(int k = 1; k<26; k++){
+			long tic = System.currentTimeMillis();
+			double error=0;
+			int counter=0;
+			for(float[] tst_sample: test_set){
+				TreeMap<Double, Integer> trMap = nn_obj.nn_search(train_set, tst_sample,k);
+				int predict =  nn_obj.classifier( k, trMap);
 				int label=(int) test_set.get(counter)[0];
-				//System.out.println("pred="+predict+" value="+label+" k="+(2*k+1));
 				if(predict!=label){
-					error[k]++;
+					error++;
 				}
+				counter++;
 			}
-			counter++;
-		}
-		
-		for(int k = 0; k<13; k++) {
-			System.out.println("For k="+(2*k+1)+" the error rate is: "+ error[k]/test_set.size());
+			long toc=System.currentTimeMillis();
+			System.out.println("For k="+(k)+" the error rate is: "+ String.format( "%.8f", error/test_set.size() ));
+			System.out.println("Execution time: "+(float)(toc-tic)/1000f);
+			k++;
 		}	
 		
-		System.out.println("Ellapsed time: "+(float)(System.currentTimeMillis()-tic_toc)/1000f);
+		System.out.println("Execution time: "+(float)(System.currentTimeMillis()-tic_toc)/1000f);
 	}
 	
 	public static ArrayList<float[]> loadDataSet(String path){

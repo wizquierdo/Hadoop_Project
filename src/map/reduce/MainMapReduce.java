@@ -21,7 +21,6 @@ public class MainMapReduce {
 		Configuration conf = new Configuration();
 		conf.set("testing_set", args[2]);
 		conf.setInt("k", Integer.parseInt(args[4]));
-		conf.setLong(FileInputFormat.SPLIT_MAXSIZE, 14512253/Integer.parseInt(args[5]));
 		Job HadoopJob = Job.getInstance(conf, "MapReduceDS");
 				
 		HadoopJob.setJarByClass(MainMapReduce.class);	
@@ -38,9 +37,9 @@ public class MainMapReduce {
 		
 		long tic_toc = System.currentTimeMillis();
 		boolean completed = HadoopJob.waitForCompletion(true);
-		System.out.println("Ellapsed time: "+(float)(System.currentTimeMillis()-tic_toc)/1000f);
+		System.out.println("Execution time: "+(float)(System.currentTimeMillis()-tic_toc)/1000f);
 		
-		System.out.println("Error Rate: "+getErrorRate(loadDataSet(args[2], conf), args[3], conf));
+		System.out.println("The error rate is: "+getErrorRate(loadDataSet(args[2], conf), args[3], conf));
 		
 		System.exit(completed? 0 : 1);
 	}
